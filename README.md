@@ -14,6 +14,6 @@ El funcionamiento automático, se usa para operaciones normales, existen 3 boton
 
 El funcionamiento manual, se usa para pruebas, existen 3 checkbox. 
 
-Cada checkbox representa un bombillo, y la posibilidad de prenderlo, o hacerlo titilar. 
+Cada checkbox representa un bombillo, y la posibilidad de prenderlo o hacerlo titilar. 
 
 <img src="assets/ImgManual.png"/>
