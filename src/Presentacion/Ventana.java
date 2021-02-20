@@ -66,22 +66,22 @@ public class Ventana extends JFrame implements ActionListener {
         pnlAutomatico.setLayout(null);
 
         btnPlay = new JButton();
-        btnPlay.setText("Play");
+        btnPlay.setText("Iniciar");
         pnlAutomatico.add(btnPlay);
-        btnPlay.setBounds(20, 20, 70, 23);
+        btnPlay.setBounds(20, 20, 80, 23);
 
         btnStop = new JButton();
-        btnStop.setText("Stop");
+        btnStop.setText("Detener");
         pnlAutomatico.add(btnStop);
-        btnStop.setBounds(20, 80, 70, 23);
+        btnStop.setBounds(20, 80, 80, 23);
 
         btnConf = new JButton();
-        btnConf.setText("Tiempo");
+        btnConf.setText("Velocidad");
         pnlAutomatico.add(btnConf);
-        btnConf.setBounds(20, 140, 69, 23);
+        btnConf.setBounds(20, 140, 80, 23);
 
         getContentPane().add(pnlAutomatico);
-        pnlAutomatico.setBounds(260, 140, 110, 180);
+        pnlAutomatico.setBounds(260, 140, 130, 180);
 
         //Inicio panel de la barra de tiempo y subelementos   
         
@@ -105,7 +105,7 @@ public class Ventana extends JFrame implements ActionListener {
         pnlOpciones.setBorder(BorderFactory.createTitledBorder("Opciones"));
         pnlOpciones.setLayout(new GridLayout(2, 1));
         getContentPane().add(pnlOpciones);
-        pnlOpciones.setBounds(260, 30, 110, 100);
+        pnlOpciones.setBounds(260, 30, 130, 100);
         
         btnAutomatico = new JRadioButton("Automatico", true);
         btnManual = new JRadioButton("Manual", false);
@@ -138,7 +138,7 @@ public class Ventana extends JFrame implements ActionListener {
         pnlManual.add(btnVerde);
 
         getContentPane().add(pnlManual);
-        pnlManual.setBounds(260, 140, 110, 180);
+        pnlManual.setBounds(260, 140, 130, 180);
         
         // Acciones respecto al canvas del semaforo
         
