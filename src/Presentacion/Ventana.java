@@ -4,36 +4,23 @@ import Logica.Semaforo;
 import java.awt.Canvas;
 import java.awt.Color;
 import java.awt.Font;
-import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import javax.swing.BorderFactory;
-import javax.swing.ButtonGroup;
-import javax.swing.JButton;
-import javax.swing.JCheckBox;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JProgressBar;
-import javax.swing.JRadioButton;
 import javax.swing.UIManager;
 import javax.swing.WindowConstants;
 
 public class Ventana extends JFrame implements ActionListener {
 
+    private PanelAutomatico pnlAutomatico;
+    private PanelManual pnlManual;
+    private PanelOpciones pnlOpciones;
     private final Semaforo semaforo;
-    private JCheckBox btnRojo;
-    private JCheckBox btnAmarillo;
-    private JCheckBox btnVerde;
-    private JButton btnPlay;
-    private JButton btnStop;
-    private JButton btnConf;
     private Canvas lienzoSemaforo;
-    private JProgressBar pbrRecorrido;
-    private JPanel pnlAutomatico;
-    private JPanel pnlManual;
-    private JRadioButton btnAutomatico;
-    private JRadioButton btnManual;
+    private JProgressBar pbrCiclo;
 
     public Ventana() {
         initComponents();
@@ -59,86 +46,33 @@ public class Ventana extends JFrame implements ActionListener {
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(null);
 
-        // Inicio panel automatico y subelementos
-        
-        pnlAutomatico = new JPanel();
-        pnlAutomatico.setBorder(BorderFactory.createEtchedBorder());
-        pnlAutomatico.setLayout(null);
-
-        btnPlay = new JButton();
-        btnPlay.setText("Iniciar");
-        pnlAutomatico.add(btnPlay);
-        btnPlay.setBounds(20, 20, 80, 23);
-
-        btnStop = new JButton();
-        btnStop.setText("Detener");
-        pnlAutomatico.add(btnStop);
-        btnStop.setBounds(20, 80, 80, 23);
-
-        btnConf = new JButton();
-        btnConf.setText("Velocidad");
-        pnlAutomatico.add(btnConf);
-        btnConf.setBounds(20, 140, 80, 23);
-
-        getContentPane().add(pnlAutomatico);
-        pnlAutomatico.setBounds(260, 140, 130, 180);
-
         //Inicio panel de la barra de tiempo y subelementos   
         
         JPanel pnlPbrRecorrido = new JPanel();
         pnlPbrRecorrido.setLayout(null);
 
-        pbrRecorrido = new JProgressBar();
-        pbrRecorrido.setFont(new Font("Tahoma", 0, 18));
-        pbrRecorrido.setOpaque(true);
-        pbrRecorrido.setStringPainted(true);
-        pbrRecorrido.setMaximum(100);
-        pnlPbrRecorrido.add(pbrRecorrido);
-        pbrRecorrido.setBounds(10, 30, 340, 50);
+        pbrCiclo = new JProgressBar();
+        pbrCiclo.setFont(new Font("Tahoma", 0, 18));
+        pbrCiclo.setOpaque(true);
+        pbrCiclo.setStringPainted(true);
+        pbrCiclo.setMaximum(100);
+        pnlPbrRecorrido.add(pbrCiclo);
+        pbrCiclo.setBounds(10, 30, 340, 50);
 
         getContentPane().add(pnlPbrRecorrido);
         pnlPbrRecorrido.setBounds(20, 320, 360, 100);
 
         // Inicio sobre panel opciones y subelementos
         
-        JPanel pnlOpciones = new JPanel();
-        pnlOpciones.setBorder(BorderFactory.createTitledBorder("Opciones"));
-        pnlOpciones.setLayout(new GridLayout(2, 1));
+        pnlOpciones = new PanelOpciones();
         getContentPane().add(pnlOpciones);
-        pnlOpciones.setBounds(260, 30, 130, 100);
         
-        btnAutomatico = new JRadioButton("Automatico", true);
-        btnManual = new JRadioButton("Manual", false);
-        
-        ButtonGroup grpBotones = new ButtonGroup();
-        grpBotones.add(btnAutomatico);
-        grpBotones.add(btnManual);
-        
-        pnlOpciones.add(btnAutomatico);
-        pnlOpciones.add(btnManual);
+        pnlAutomatico = new PanelAutomatico();
+        getContentPane().add(pnlAutomatico);
 
-        // Inicio panel Manual y subelementos
-        
-        pnlManual = new JPanel();
-        pnlManual.setBorder(BorderFactory.createTitledBorder("Colores"));
-        pnlManual.setLayout(new GridLayout(3, 1));
-        pnlManual.setVisible(false);
-        pnlManual.setEnabled(false);
-
-        btnRojo = new JCheckBox();
-        btnRojo.setText("Rojo");
-        pnlManual.add(btnRojo);
-
-        btnAmarillo = new JCheckBox();
-        btnAmarillo.setText("Amarillo");
-        pnlManual.add(btnAmarillo);
-
-        btnVerde = new JCheckBox();
-        btnVerde.setText("Verde");
-        pnlManual.add(btnVerde);
-
+        pnlManual = new PanelManual();
         getContentPane().add(pnlManual);
-        pnlManual.setBounds(260, 140, 130, 180);
+        
         
         // Acciones respecto al canvas del semaforo
         
@@ -156,17 +90,10 @@ public class Ventana extends JFrame implements ActionListener {
     }   
     
     private void capturarEventos(){
-        //Intrucciones principales
-        btnAutomatico.addActionListener(this);
-        btnManual.addActionListener(this);
-        //Instrucciones secundarias de Manual
-        btnRojo.addActionListener(this);
-        btnAmarillo.addActionListener(this);
-        btnVerde.addActionListener(this);
-        //Instrucciones secundarias del Automatico
-        btnPlay.addActionListener(this);
-        btnStop.addActionListener(this);
-        btnConf.addActionListener(this);
+        ActionListener actionListener = this;
+        pnlOpciones.addActionListener(actionListener);
+        pnlManual.addActionListener(actionListener);
+        pnlAutomatico.addActionListener(actionListener);
     }
 
     public Canvas getLienzoSemaforo() {
@@ -175,27 +102,28 @@ public class Ventana extends JFrame implements ActionListener {
 
     public void setNumPbrRecorrido(int tiempoActual){
         if(tiempoActual>=1){
-            pbrRecorrido.setValue(tiempoActual);
-            pbrRecorrido.setString(tiempoActual + "%");
+            pbrCiclo.setValue(tiempoActual);
+            pbrCiclo.setString(tiempoActual + "%");
         } else {
-            pbrRecorrido.setValue(0);
+            pbrCiclo.setValue(0);
         }
     } 
      
     @Override
     public void actionPerformed(ActionEvent e) {
+        String comando = e.getActionCommand();
         /**
          * Nota: Los botones Automático y manual son 
          * los mas importantes del programa
          */
-        if(e.getSource() == btnAutomatico){
+        if(comando.equals("Automatico")){
             pnlManual.setVisible(false);
             pnlManual.setEnabled(false);
             pnlAutomatico.setVisible(true);
             pnlAutomatico.setEnabled(true);
             semaforo.setAutomatico(true);
         }
-        if(e.getSource()== btnManual){
+        if(comando.equals("Manual")){
             pnlManual.setVisible(true);
             pnlManual.setEnabled(true);
             pnlAutomatico.setVisible(false);
@@ -205,25 +133,25 @@ public class Ventana extends JFrame implements ActionListener {
         /**
          * Opciones secundarias con los botones manuales
          */
-        if (e.getSource() == btnRojo) {
-            semaforo.setColorBombillo(Color.RED, btnRojo.isSelected());
+        if (comando.equals("Rojo")) {
+            semaforo.setColorBombillo(Color.RED, pnlManual.isSelectedJcbRojo());
         }
-        if (e.getSource() == btnAmarillo) {
-            semaforo.setColorBombillo(Color.YELLOW, btnAmarillo.isSelected());
+        if (comando.equals("Amarillo")) {
+            semaforo.setColorBombillo(Color.YELLOW, pnlManual.isSelectedJcbAmarillo());
         }
-        if (e.getSource() == btnVerde) {
-            semaforo.setColorBombillo(Color.GREEN, btnVerde.isSelected());
+        if (comando.equals("Verde")) {
+            semaforo.setColorBombillo(Color.GREEN, pnlManual.isSelectedJcbVerde());
         }
         /**
          * Opciones secundarias con los botones automaticos
          */
-        if (e.getSource() == btnPlay) {
+        if (comando.equals("Iniciar")) {
             semaforo.setActivado(true);
         }
-        if (e.getSource() == btnStop) {
+        if (comando.equals("Detener")) {
             semaforo.setActivado(false);
         }
-        if (e.getSource() == btnConf) {
+        if (comando.equals("Velocidad")) {
             String datoString = JOptionPane.showInputDialog("¿A que velocidad quiere el semaforo?"
                 + "\n entre menor sea el numero, mas rapido es"
                 + "\n se cuenta en milisegundos");
