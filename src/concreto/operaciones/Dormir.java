@@ -1,13 +1,13 @@
-package Operaciones;
+package concreto.operaciones;
 
-import Logica.Operacion;
+import abstracto.logica.Operacion;
 
 public class Dormir implements Operacion {
 
     @Override
     public void realizar() {
         try {
-            Thread.sleep(100);
+            Thread.sleep(30);
         } catch (InterruptedException ex) {}
     }
     

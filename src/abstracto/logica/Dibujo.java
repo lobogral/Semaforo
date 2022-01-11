@@ -1,4 +1,4 @@
-package Logica;
+package abstracto.logica;
 
 import java.awt.Graphics;
 

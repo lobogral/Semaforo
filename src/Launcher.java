@@ -1,17 +1,37 @@
-import Logica.Bombillo;
-import Logica.Dibujo;
-import Logica.Operacion;
-import Logica.Semaforo;
-import Operaciones.Actualizar;
-import Operaciones.Dibujar;
-import Operaciones.Dormir;
-import Presentacion.Ventana;
+import abstracto.logica.Bombillo;
+import abstracto.logica.Click;
+import abstracto.logica.Dibujo;
+import abstracto.logica.Operacion;
+import abstracto.logica.Semaforo;
+import concreto.operaciones.Actualizar;
+import concreto.operaciones.Dibujar;
+import concreto.operaciones.Dormir;
+import abstracto.presentacion.Ventana;
+import concreto.click.ClickDetener;
+import concreto.click.ClickIniciar;
 import java.awt.Canvas;
 import java.awt.Color;
+import javax.swing.UIManager;
+import javax.swing.UnsupportedLookAndFeelException;
 
 public class Launcher {
     
     public static void main(String[] args) {
+        
+        //Establece el lookAndFeel
+        try {
+            for (UIManager.LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()) {
+                if ("Windows".equals(info.getName())) {
+                    UIManager.setLookAndFeel(info.getClassName());
+                    break;
+                }
+            }
+        } catch (ClassNotFoundException 
+                 | IllegalAccessException 
+                 | InstantiationException 
+                 | UnsupportedLookAndFeelException ex) {
+            System.out.println("No se puede implementar LookAndFeel");
+        }
         
         Canvas lienzo = new Canvas();
         lienzo.setBounds(30, 30, 200, 300);
@@ -24,15 +44,20 @@ public class Launcher {
         Actualizar actualizar = new Actualizar(bombilloRojo, bombilloAmarillo, bombilloVerde);
         
         int cont;
-        Operacion[] operaciones = new Operacion[3];
         
         cont = 0;
+        Operacion[] operaciones = new Operacion[3];
         operaciones[cont++] = new Dibujar(lienzo, dibujos);
         operaciones[cont++] = new Dormir();
         operaciones[cont++] = actualizar;
         
+        cont = 0;
+        Click[] clicks = new Click[2];
+        clicks[cont++] = new ClickIniciar(actualizar);
+        clicks[cont++] = new ClickDetener(actualizar);
+        
         Semaforo semaforo = new Semaforo(operaciones);
-        Ventana ventana = new Ventana(lienzo, actualizar);
+        Ventana ventana = new Ventana(lienzo, clicks);
         
         Thread hiloPrograma = new Thread(semaforo);
         hiloPrograma.start();

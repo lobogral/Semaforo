@@ -1,12 +1,12 @@
-package Operaciones;
+package concreto.operaciones;
 
 import java.awt.Canvas;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
-import Logica.Dibujo;
-import Logica.Operacion;
+import abstracto.logica.Dibujo;
+import abstracto.logica.Operacion;
 
 public class Dibujar implements Operacion {
 

@@ -1,7 +1,7 @@
-package Operaciones;
+package concreto.operaciones;
 
-import Logica.Bombillo;
-import Logica.Operacion;
+import abstracto.logica.Bombillo;
+import abstracto.logica.Operacion;
 
 public class Actualizar implements Operacion {
     
