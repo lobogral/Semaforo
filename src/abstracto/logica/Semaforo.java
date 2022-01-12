@@ -1,19 +1,29 @@
 package abstracto.logica;
 
+import java.util.ArrayList;
+
 public class Semaforo implements Runnable {
 
-    private final Operacion[] operaciones;
+    private final ArrayList<Operacion> operaciones;
+    private final Object cerrojo;
     
-    public Semaforo(Operacion[] operaciones){
+    public Semaforo(ArrayList<Operacion> operaciones, Object cerrojo){
         this.operaciones = operaciones;
+        this.cerrojo = cerrojo;
     }
     
     @Override
     public void run() {
         while(true){
-            for (Operacion operacion : operaciones) {
-                operacion.realizar();
+            synchronized(cerrojo){
+                operaciones.forEach(operacion -> {
+                    operacion.realizar();
+                });
             }
+            
+            try {
+                Thread.sleep(30);
+            } catch (InterruptedException ex) {}
         }
     }    
 

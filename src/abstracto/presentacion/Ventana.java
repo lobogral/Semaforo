@@ -11,16 +11,20 @@ import javax.swing.WindowConstants;
 
 public class Ventana extends JFrame implements ActionListener {
 
-    public Ventana(Canvas lienzoSemaforo, Click[] clicks) {
+    public Ventana(Canvas lienzoSemaforo, Click[] clicks, Object cerrojo) {
 
         //Define el panel de los botones
         JPanel pnlBotones = new JPanel();
         pnlBotones.setBorder(BorderFactory.createEtchedBorder());
         pnlBotones.setLayout(null);
 
+        JButtonExt jButtonExt;
+        ActionListener actionListener = this;
         int cont = 20;
         for (Click click : clicks) {
-            pnlBotones.add(new JButtonExt(20, cont, click, this));
+            jButtonExt = new JButtonExt(20, cont, click, cerrojo);
+            jButtonExt.addActionListener(actionListener);
+            pnlBotones.add(jButtonExt);
             cont += 60;
         }
         

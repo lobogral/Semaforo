@@ -3,14 +3,14 @@ import abstracto.logica.Click;
 import abstracto.logica.Dibujo;
 import abstracto.logica.Operacion;
 import abstracto.logica.Semaforo;
+import abstracto.presentacion.Ventana;
 import concreto.operaciones.Actualizar;
 import concreto.operaciones.Dibujar;
-import concreto.operaciones.Dormir;
-import abstracto.presentacion.Ventana;
-import concreto.click.ClickDetener;
+import concreto.click.ClickPausar;
 import concreto.click.ClickIniciar;
 import java.awt.Canvas;
 import java.awt.Color;
+import java.util.ArrayList;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 
@@ -43,21 +43,17 @@ public class Launcher {
         Dibujo[] dibujos = {bombilloRojo, bombilloAmarillo, bombilloVerde};
         Actualizar actualizar = new Actualizar(bombilloRojo, bombilloAmarillo, bombilloVerde);
         
-        int cont;
+        ArrayList<Operacion> operaciones = new ArrayList<>();
+        operaciones.add(new Dibujar(lienzo, dibujos));
         
-        cont = 0;
-        Operacion[] operaciones = new Operacion[3];
-        operaciones[cont++] = new Dibujar(lienzo, dibujos);
-        operaciones[cont++] = new Dormir();
-        operaciones[cont++] = actualizar;
-        
-        cont = 0;
+        int cont = 0;
+        Object cerrojo = new Object();
         Click[] clicks = new Click[2];
-        clicks[cont++] = new ClickIniciar(actualizar);
-        clicks[cont++] = new ClickDetener(actualizar);
+        clicks[cont++] = new ClickIniciar(actualizar, operaciones);
+        clicks[cont++] = new ClickPausar(actualizar, operaciones);
         
-        Semaforo semaforo = new Semaforo(operaciones);
-        Ventana ventana = new Ventana(lienzo, clicks);
+        Semaforo semaforo = new Semaforo(operaciones, cerrojo);
+        Ventana ventana = new Ventana(lienzo, clicks, cerrojo);
         
         Thread hiloPrograma = new Thread(semaforo);
         hiloPrograma.start();
