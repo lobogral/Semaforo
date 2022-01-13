@@ -8,27 +8,27 @@ import abstracto.interfaces.Contexto;
 
 public class EstPausado implements Estado {
 
-    private final OpActualizar actualizar;
+    private final OpActualizar opActualizar;
     private final ArrayList<Operacion> operaciones;
     private Contexto contexto;
-    private EstIniciado iniciado;
+    private EstIniciado estIniciado;
 
     public EstPausado(OpActualizar actualizar,
-                   ArrayList<Operacion> operaciones){
-        this.actualizar = actualizar;
+                      ArrayList<Operacion> operaciones){
+        this.opActualizar = actualizar;
         this.operaciones = operaciones;
     }
     
-    public void setContextoEstados(Contexto contexto, EstIniciado iniciado){
-        this.iniciado = iniciado;
+    public void setContextoEstados(Contexto contexto, EstIniciado estIniciado){
+        this.estIniciado = estIniciado;
         this.contexto = contexto;
     }
 
     @Override
     public void procesar(String orden) {
         if(orden.equals("Iniciar")){
-            operaciones.add(actualizar);
-            contexto.setEstado(iniciado);
+            operaciones.add(opActualizar);
+            contexto.setEstado(estIniciado);
         } else {
             System.out.println(orden + ", orden no ejecutable");
         }

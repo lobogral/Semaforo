@@ -11,8 +11,8 @@ public class OpActualizar implements Operacion {
     private int recorrido;
     
     public OpActualizar(Bombillo bombilloRojo, 
-                      Bombillo bombilloAmarillo, 
-                      Bombillo bombilloVerde){
+                        Bombillo bombilloAmarillo, 
+                        Bombillo bombilloVerde){
         this.bombilloRojo = bombilloRojo;
         this.bombilloAmarillo = bombilloAmarillo;
         this.bombilloVerde = bombilloVerde;
