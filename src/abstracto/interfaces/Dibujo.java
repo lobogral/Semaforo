@@ -1,4 +1,4 @@
-package abstracto.logica;
+package abstracto.interfaces;
 
 import java.awt.Graphics;
 

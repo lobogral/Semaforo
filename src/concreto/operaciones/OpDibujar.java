@@ -5,10 +5,10 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
-import abstracto.logica.Dibujo;
-import abstracto.logica.Operacion;
+import abstracto.interfaces.Dibujo;
+import abstracto.interfaces.Operacion;
 
-public class Dibujar implements Operacion {
+public class OpDibujar implements Operacion {
 
     private final int ancho;
     private final int alto;
@@ -16,7 +16,7 @@ public class Dibujar implements Operacion {
     private final Dibujo[] bombillos;
     private final Canvas lienzoVentana;
     
-    public Dibujar(Canvas lienzoVentana, Dibujo[] bombillos) {
+    public OpDibujar(Canvas lienzoVentana, Dibujo[] bombillos) {
         this.bombillos = bombillos;
         this.lienzoVentana = lienzoVentana;
         ancho = lienzoVentana.getWidth();

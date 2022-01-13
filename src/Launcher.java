@@ -1,13 +1,12 @@
 import abstracto.logica.Bombillo;
-import abstracto.logica.Click;
-import abstracto.logica.Dibujo;
-import abstracto.logica.Operacion;
+import abstracto.interfaces.Dibujo;
+import abstracto.interfaces.Operacion;
 import abstracto.logica.Semaforo;
 import abstracto.presentacion.Ventana;
-import concreto.operaciones.Actualizar;
-import concreto.operaciones.Dibujar;
-import concreto.click.ClickPausar;
-import concreto.click.ClickIniciar;
+import concreto.operaciones.OpActualizar;
+import concreto.operaciones.OpDibujar;
+import concreto.estados.EstIniciado;
+import concreto.estados.EstPausado;
 import java.awt.Canvas;
 import java.awt.Color;
 import java.util.ArrayList;
@@ -41,19 +40,25 @@ public class Launcher {
         Bombillo bombilloVerde = new Bombillo(new Color(4, 151, 0), Color.GREEN, 198);
         
         Dibujo[] dibujos = {bombilloRojo, bombilloAmarillo, bombilloVerde};
-        Actualizar actualizar = new Actualizar(bombilloRojo, bombilloAmarillo, bombilloVerde);
+        
+        OpActualizar opActualizar = new OpActualizar(bombilloRojo, bombilloAmarillo, bombilloVerde);
+        OpDibujar opDibujar = new OpDibujar(lienzo, dibujos);
         
         ArrayList<Operacion> operaciones = new ArrayList<>();
-        operaciones.add(new Dibujar(lienzo, dibujos));
-        
-        int cont = 0;
+        operaciones.add(opDibujar);
+                
         Object cerrojo = new Object();
-        Click[] clicks = new Click[2];
-        clicks[cont++] = new ClickIniciar(actualizar, operaciones);
-        clicks[cont++] = new ClickPausar(actualizar, operaciones);
-        
         Semaforo semaforo = new Semaforo(operaciones, cerrojo);
-        Ventana ventana = new Ventana(lienzo, clicks, cerrojo);
+        
+        String[] nombresBotones = {"Iniciar", "Pausar"};
+        EstIniciado estIniciado = new EstIniciado(opActualizar, operaciones);
+        EstPausado estPausado = new EstPausado(opActualizar, operaciones);
+        
+        estIniciado.setContextoEstados(semaforo, estPausado);
+        estPausado.setContextoEstados(semaforo, estIniciado);
+        semaforo.setEstado(estPausado);
+        
+        Ventana ventana = new Ventana(lienzo, nombresBotones, semaforo, cerrojo);
         
         Thread hiloPrograma = new Thread(semaforo);
         hiloPrograma.start();

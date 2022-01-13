@@ -1,4 +1,4 @@
-package abstracto.logica;
+package abstracto.interfaces;
 
 public interface Operacion {
     public void realizar();

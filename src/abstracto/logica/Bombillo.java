@@ -1,5 +1,6 @@
 package abstracto.logica;
 
+import abstracto.interfaces.Dibujo;
 import java.awt.Color;
 import java.awt.Graphics;
 

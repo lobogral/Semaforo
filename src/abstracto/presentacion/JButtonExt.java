@@ -1,26 +1,27 @@
 package abstracto.presentacion;
 
-import abstracto.logica.Click;
+import abstracto.interfaces.Contexto;
 import javax.swing.JButton;
 
 public class JButtonExt extends JButton{
     
-    private final Click oprimir;
     private final Object cerrojo;
+    private final Contexto contexto;
     
     public JButtonExt(int posX, 
                       int posY, 
-                      Click oprimir, 
-                      Object cerrojo){
-        this.oprimir = oprimir;
+                      String nombre,
+                      Object cerrojo,
+                      Contexto contexto){
+        this.contexto = contexto;
         this.cerrojo = cerrojo;
-        setText(oprimir.getNombre());
+        setText(nombre);
         setBounds(posX, posY, 80, 23);
     }
     
     public void ejecutar(){
         synchronized(cerrojo){
-            oprimir.ejecutar();
+            contexto.solicitar(getText());
         }
     }
 }

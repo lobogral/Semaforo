@@ -1,6 +1,6 @@
 package abstracto.presentacion;
 
-import abstracto.logica.Click;
+import abstracto.interfaces.Contexto;
 import java.awt.Canvas;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -11,7 +11,7 @@ import javax.swing.WindowConstants;
 
 public class Ventana extends JFrame implements ActionListener {
 
-    public Ventana(Canvas lienzoSemaforo, Click[] clicks, Object cerrojo) {
+    public Ventana(Canvas lienzoSemaforo, String[] nombresBotones, Contexto contexto, Object cerrojo) {
 
         //Define el panel de los botones
         JPanel pnlBotones = new JPanel();
@@ -21,8 +21,8 @@ public class Ventana extends JFrame implements ActionListener {
         JButtonExt jButtonExt;
         ActionListener actionListener = this;
         int cont = 20;
-        for (Click click : clicks) {
-            jButtonExt = new JButtonExt(20, cont, click, cerrojo);
+        for (String nombreBoton : nombresBotones) {
+            jButtonExt = new JButtonExt(20, cont, nombreBoton, cerrojo, contexto);
             jButtonExt.addActionListener(actionListener);
             pnlBotones.add(jButtonExt);
             cont += 60;
