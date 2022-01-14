@@ -13,11 +13,11 @@ public class OpDibujar implements Operacion {
     private final int ancho;
     private final int alto;
     private final Image buffer;
-    private final Dibujo[] bombillos;
+    private final Dibujo[] dibujos;
     private final Canvas lienzoVentana;
     
-    public OpDibujar(Canvas lienzoVentana, Dibujo[] bombillos) {
-        this.bombillos = bombillos;
+    public OpDibujar(Canvas lienzoVentana, Dibujo[] dibujos) {
+        this.dibujos = dibujos;
         this.lienzoVentana = lienzoVentana;
         ancho = lienzoVentana.getWidth();
         alto = lienzoVentana.getHeight();
@@ -36,7 +36,7 @@ public class OpDibujar implements Operacion {
         lapizBuffer.fillRect(85, 270, 30, 30);
         
         //Dibuja los bombillos
-        for (Dibujo bombillo : bombillos) {
+        for (Dibujo bombillo : dibujos) {
             bombillo.dibujar(lapizBuffer);
         }
         

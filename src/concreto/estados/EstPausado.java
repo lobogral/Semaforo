@@ -1,16 +1,16 @@
 package concreto.estados;
 
+import abstracto.interfaces.CambioEstado;
 import abstracto.interfaces.Estado;
 import abstracto.interfaces.Operacion;
 import concreto.operaciones.OpActualizar;
 import java.util.ArrayList;
-import abstracto.interfaces.Contexto;
 
 public class EstPausado implements Estado {
 
     private final OpActualizar opActualizar;
     private final ArrayList<Operacion> operaciones;
-    private Contexto contexto;
+    private CambioEstado cambioEstado;
     private EstIniciado estIniciado;
 
     public EstPausado(OpActualizar actualizar,
@@ -19,16 +19,16 @@ public class EstPausado implements Estado {
         this.operaciones = operaciones;
     }
     
-    public void setContextoEstados(Contexto contexto, EstIniciado estIniciado){
+    public void addCambioEstados(CambioEstado cambioEstado, EstIniciado estIniciado){
         this.estIniciado = estIniciado;
-        this.contexto = contexto;
+        this.cambioEstado = cambioEstado;
     }
 
     @Override
     public void procesar(String orden) {
         if(orden.equals("Iniciar")){
             operaciones.add(opActualizar);
-            contexto.setEstado(estIniciado);
+            cambioEstado.setEstado(estIniciado);
         } else {
             System.out.println(orden + ", orden no ejecutable");
         }

@@ -1,11 +1,12 @@
 package abstracto.logica;
 
+import abstracto.interfaces.CambioEstado;
 import abstracto.interfaces.Contexto;
 import abstracto.interfaces.Operacion;
 import abstracto.interfaces.Estado;
 import java.util.ArrayList;
 
-public class Semaforo implements Runnable, Contexto {
+public class Semaforo implements Runnable, Contexto, CambioEstado {
 
     private final ArrayList<Operacion> operaciones;
     private final Object cerrojo;

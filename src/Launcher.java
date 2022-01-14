@@ -54,8 +54,8 @@ public class Launcher {
         EstIniciado estIniciado = new EstIniciado(opActualizar, operaciones);
         EstPausado estPausado = new EstPausado(opActualizar, operaciones);
         
-        estIniciado.setContextoEstados(semaforo, estPausado);
-        estPausado.setContextoEstados(semaforo, estIniciado);
+        estIniciado.addCambioEstados(semaforo, estPausado);
+        estPausado.addCambioEstados(semaforo, estIniciado);
         semaforo.setEstado(estPausado);
         
         Ventana ventana = new Ventana(lienzo, nombresBotones, semaforo, cerrojo);
