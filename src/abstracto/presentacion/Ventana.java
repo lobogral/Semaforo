@@ -36,7 +36,7 @@ public class Ventana extends JFrame implements ActionListener {
         pack();
         
         //Opciones de la ventana
-        this.setBounds(30, 30, 430, 480);
+        this.setBounds(30, 30, 430, 400);
         this.setTitle("Semaforo");
         this.setVisible(true);
         

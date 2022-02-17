@@ -16,7 +16,7 @@ public class JButtonExt extends JButton{
         this.contexto = contexto;
         this.cerrojo = cerrojo;
         setText(nombre);
-        setBounds(posX, posY, 80, 23);
+        setBounds(posX, posY, 80, 30);
     }
     
     public void ejecutar(){

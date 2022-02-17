@@ -1,10 +1,11 @@
 package abstracto.logica;
 
 import abstracto.interfaces.Dibujo;
+import abstracto.interfaces.Encendido;
 import java.awt.Color;
 import java.awt.Graphics;
 
-public class Bombillo implements Dibujo {
+public class Bombillo implements Dibujo, Encendido{
     
     private boolean encendido;
     private final Color colorApagado;
@@ -17,6 +18,7 @@ public class Bombillo implements Dibujo {
         this.posY = posY;
     }
     
+    @Override
     public void setEncendido(boolean encendido){
         this.encendido = encendido;
     }

@@ -1,18 +1,18 @@
 package concreto.operaciones;
 
-import abstracto.logica.Bombillo;
+import abstracto.interfaces.Encendido;
 import abstracto.interfaces.Operacion;
 
 public class OpActualizar implements Operacion {
     
-    private final Bombillo bombilloRojo;
-    private final Bombillo bombilloAmarillo;
-    private final Bombillo bombilloVerde;
+    private final Encendido bombilloRojo;
+    private final Encendido bombilloAmarillo;
+    private final Encendido bombilloVerde;
     private int recorrido;
     
-    public OpActualizar(Bombillo bombilloRojo, 
-                        Bombillo bombilloAmarillo, 
-                        Bombillo bombilloVerde){
+    public OpActualizar(Encendido bombilloRojo, 
+                        Encendido bombilloAmarillo, 
+                        Encendido bombilloVerde){
         this.bombilloRojo = bombilloRojo;
         this.bombilloAmarillo = bombilloAmarillo;
         this.bombilloVerde = bombilloVerde;
