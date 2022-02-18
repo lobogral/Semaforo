@@ -47,4 +47,11 @@ public class OpActualizar implements Operacion {
         recorrido = recorrido == 100 ? 0 : recorrido + 1;
     }
     
+    public void apagar(){
+        bombilloRojo.setEncendido(false);
+        bombilloAmarillo.setEncendido(false);
+        bombilloVerde.setEncendido(false);
+        recorrido = 0;
+    }
+    
 }

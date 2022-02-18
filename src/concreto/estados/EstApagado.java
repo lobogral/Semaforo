@@ -6,25 +6,21 @@ import abstracto.interfaces.Operacion;
 import concreto.operaciones.OpActualizar;
 import java.util.ArrayList;
 
-public class EstPausado implements Estado {
+public class EstApagado implements Estado {
 
     private final OpActualizar opActualizar;
     private final ArrayList<Operacion> operaciones;
     private CambioEstado cambioEstado;
     private EstIniciado estIniciado;
-    private EstApagado estApagado;
 
-    public EstPausado(OpActualizar actualizar,
+    public EstApagado(OpActualizar actualizar,
                       ArrayList<Operacion> operaciones){
         this.opActualizar = actualizar;
         this.operaciones = operaciones;
     }
     
-    public void addCambioEstados(CambioEstado cambioEstado, 
-                                 EstIniciado estIniciado,
-                                 EstApagado estApagado){
+    public void addCambioEstados(CambioEstado cambioEstado, EstIniciado estIniciado){
         this.estIniciado = estIniciado;
-        this.estApagado = estApagado;
         this.cambioEstado = cambioEstado;
     }
 
@@ -33,8 +29,6 @@ public class EstPausado implements Estado {
         if(orden.equals("Iniciar")){
             operaciones.add(opActualizar);
             cambioEstado.setEstado(estIniciado);
-        } else if (orden.equals("Apagar")){
-            opActualizar.apagar();
         } else {
             System.out.println(orden + ", orden no ejecutable");
         }

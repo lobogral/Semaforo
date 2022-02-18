@@ -3,6 +3,7 @@ import abstracto.interfaces.Dibujo;
 import abstracto.interfaces.Operacion;
 import abstracto.logica.Semaforo;
 import abstracto.presentacion.Ventana;
+import concreto.estados.EstApagado;
 import concreto.operaciones.OpActualizar;
 import concreto.operaciones.OpDibujar;
 import concreto.estados.EstIniciado;
@@ -50,13 +51,15 @@ public class Launcher {
         Object cerrojo = new Object();
         Semaforo semaforo = new Semaforo(operaciones, cerrojo);
         
-        String[] nombresBotones = {"Iniciar", "Pausar"};
+        String[] nombresBotones = {"Iniciar", "Pausar", "Apagar"};
         EstIniciado estIniciado = new EstIniciado(opActualizar, operaciones);
         EstPausado estPausado = new EstPausado(opActualizar, operaciones);
+        EstApagado estApagado = new EstApagado(opActualizar, operaciones);
         
-        estIniciado.addCambioEstados(semaforo, estPausado);
-        estPausado.addCambioEstados(semaforo, estIniciado);
-        semaforo.setEstado(estPausado);
+        estIniciado.addCambioEstados(semaforo, estPausado, estApagado);
+        estPausado.addCambioEstados(semaforo, estIniciado, estApagado);
+        estApagado.addCambioEstados(semaforo, estIniciado);
+        semaforo.setEstado(estApagado);
         
         Ventana ventana = new Ventana(lienzo, nombresBotones, semaforo, cerrojo);
         
